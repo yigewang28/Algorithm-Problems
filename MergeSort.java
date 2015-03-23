@@ -1,47 +1,37 @@
-
 public class MergeSort {
-	
-	public void sort(int[] array){
+
+	public void mergeSort(int[] array) {
 		if(array == null || array.length <= 1)
 			return;
-		
-		merge(array, 0, array.length-1);
-		
+		sort(array, 0, array.length - 1);
 	}
-	
-	public void merge(int[] array, int start, int end){
-		int mid = (start + end) / 2;
+
+	public void sort(int[] array, int start, int end) {
 		if(start >= end) return;
-		merge(array, start, mid);
-		merge(array, mid+1, end);
-		int[] temp = new int[array.length];
+		int mid = (start + end) / 2;
+
+		sort(array, start, mid);
+		sort(array, mid + 1, end);
+
 		int left = start;
 		int right = mid + 1;
 		int index = start;
-		while(left <= mid || right <= end){
+
+		int[] temp = new int[array.length];
+		while(left <= mid || right <= end) {
 			if(right > end || (left <= mid && array[left] < array[right])){
 				temp[index] = array[left];
+				index ++;
 				left ++;
-				index ++;
 			}
-			else{
+			else {
 				temp[index] = array[right];
-				right ++;
 				index ++;
+				right ++;
 			}
 		}
-		
-		for(int i = start; i <= end; i++){
-			array[i] = temp[i];
-		}
-	}
-	
-	public static void main(String[] args){
-		int[] array = {3,2,1,5,6,0};
-		MergeSort test = new MergeSort();
-		test.sort(array);
-		for(int i = 0; i < array.length; i++)
-			System.out.print(array[i] + " ");
-	}
 
+		for(int i = start; i <= end; i++)
+			array[i] = temp[i];
+	}
 }

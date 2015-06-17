@@ -9,29 +9,25 @@
  *     }
  * }
  */
-public class RotateList {
-	public ListNode rotateList(ListNode head) {
-		if(head == null) return null;
-		if(head.next == null) return head;
+public class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null || k == 0) return head;
+        ListNode current = head;
+        ListNode back = head;
+        int count = 1;
+        while(current.next != null) {
+            current = current.next;
+            count ++;
+        }
+        k = k % count;
+        if(k == 0) return head;
+        for(int i = 0; i < count - k - 1; i ++) {
+            back = back.next;
+        }
+        ListNode result = back.next;
+        current.next = head;
+        back.next = null;
+        return result;
 
-		ListNode index = head;
-		ListNode temp = index.next;
-		ListNode right;
-		while(temp != null) {
-			right = temp.next;
-			temp.next = index;
-			index = temp;
-			temp = right;
-		}
-		head.next = null;
-		return index;
-	}
-
-	public static void main(String[] args) {
-		RotateList test = new RotateList();
-		ListNode head = new ListNode(9);
-		head.next = new ListNode(8);
-		head.next.next = new ListNode(7);
-		System.out.println(test.rotateList(head).val);
-	}
+    }
 }

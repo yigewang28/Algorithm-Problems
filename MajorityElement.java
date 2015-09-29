@@ -1,4 +1,5 @@
 public class Solution {
+    /*
     public int majorityElement(int[] num) {
 
         int result = num[0];
@@ -19,5 +20,41 @@ public class Solution {
             }
         }
         return result;
+    }
+    */
+    /*
+    public int majorityElement(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(int i = 0; i < nums.length; i++) {
+            if(!map.containsKey(nums[i])) {
+                map.put(nums[i], 1);
+            }
+            else {
+                int temp = map.get(nums[i]);
+                map.put(nums[i], temp + 1);
+            }
+        }
+        for(Integer key : map.keySet()) {
+            if(map.get(key) > nums.length / 2) {
+                return key;
+            }
+        }
+        return 0;
+    }
+    */
+    public int majorityElement(int[] nums) {
+        int maxValue = 0;
+        int maxCount = 0;
+        for (int i : nums) {
+            if (maxCount == 0) {
+                maxValue = i;
+                maxCount++;
+            } else if (i == maxValue) {
+                maxCount++;
+            } else {
+                maxCount--;
+            }
+        }
+        return maxValue;
     }
 }
